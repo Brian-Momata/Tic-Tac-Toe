@@ -58,14 +58,14 @@ body {
   width: 300px;
   padding: 20px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 /* Styling for the message box inside the dialog */
 .message-box {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
