@@ -36,12 +36,17 @@ const Gameboard = (player1, player2) => {
       cell.innerHTML = mark;
     
       // Check for a winner after each move
-      if (checkWinner()) {
-        dialog.showModal();
+      const winnerCombo = checkWinner();
+      if (winnerCombo) {
+        showModalWithDelay(`${currentPlayer.getName()} Wins!`);
         messageBox.textContent = `${currentPlayer.getName()} Wins!`;
+
+        // Add a class to the winning cells for styling
+        for (const index of winnerCombo) {
+          board[index].classList.add('winning-cell');
+        }
       } else if (checkDraw()) {
-        dialog.showModal();
-        messageBox.textContent = "It is a Draw!"; 
+        showModalWithDelay("It's a Draw!");
       }
       else {
         // Switch the current player
@@ -60,6 +65,8 @@ const Gameboard = (player1, player2) => {
   const resetBoard = () => {
     board.forEach((cell) => {
       cell.innerHTML = "";
+      cell.classList.remove('winning-cell');
+      cell.classList.remove('draw-cells');
     });
 
     // Clear the messages
@@ -81,17 +88,36 @@ const Gameboard = (player1, player2) => {
         [6, 7, 8]
     ];
     
-    return winningCombos.some((combo) => {
-        return combo.every((index) => board[index].innerHTML === currentPlayer.getMark());
-    });
+    for (const combo of winningCombos) {
+      const [a, b, c] = combo;
+      if (board[a].innerHTML !== '' &&
+          board[a].innerHTML === board[b].innerHTML &&
+          board[b].innerHTML === board[c].innerHTML) {
+        return combo; // Return the winning combination
+      }
+    }
+  
+    return null; // No winner
   }
 
   const checkDraw = () => {
     // Check if all cells are filled with marks
     const allCellsFilled = Array.from(board).every((cell) => cell.innerHTML !== '');
+
+    if (allCellsFilled){
+      board.forEach((cell) => cell.classList.add('draw-cells'))
+    }
   
     return allCellsFilled;
   };
+
+  // Show modal with a delay
+  const showModalWithDelay = (message, delay = 0) => {
+    setTimeout(() => {
+      dialog.showModal();
+      messageBox.textContent = message;
+    }, delay);
+  }
   
 
   closeDialogButton.addEventListener('click', () => {
