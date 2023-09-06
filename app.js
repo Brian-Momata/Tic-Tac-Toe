@@ -39,7 +39,11 @@ const Gameboard = (player1, player2) => {
       if (checkWinner()) {
         dialog.showModal();
         messageBox.textContent = `${currentPlayer.getName()} Wins!`;
-      } else {
+      } else if (checkDraw()) {
+        dialog.showModal();
+        messageBox.textContent = "It is a Draw!"; 
+      }
+      else {
         // Switch the current player
         currentPlayer = currentPlayer === player1 ? player2 : player1;
         displayRound();
@@ -81,6 +85,14 @@ const Gameboard = (player1, player2) => {
         return combo.every((index) => board[index].innerHTML === currentPlayer.getMark());
     });
   }
+
+  const checkDraw = () => {
+    // Check if all cells are filled with marks
+    const allCellsFilled = Array.from(board).every((cell) => cell.innerHTML !== '');
+  
+    return allCellsFilled;
+  };
+  
 
   closeDialogButton.addEventListener('click', () => {
     resetBoard();
