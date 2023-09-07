@@ -19,6 +19,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
   max-width: 400px;
+  display: none;
 }
 
 /* Styling for the game board */
@@ -120,4 +121,50 @@ body {
 /* Add CSS class to cells if it is a draw */
 .draw-cells {
   animation: pulse 1s ease-in-out infinite;
+}
+
+/* Style for the player form */
+.player-form {
+  text-align: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form labels */
+.player-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Style for form inputs and selects */
+.player-form input[type="text"],
+.player-form select {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Style for the "Start Game" button */
+.player-form button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover style for the button */
+.player-form button:hover {
+  background-color: #555;
 }

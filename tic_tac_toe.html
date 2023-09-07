@@ -9,6 +9,28 @@
 </head>
 <body>
   <div class="round-messages"></div>
+  <form class="player-form">
+    <label for="player1-name">Player 1 Name:</label>
+    <input type="text" id="player1-name" placeholder="Enter Player 1's name" required>
+  
+    <label for="player2-name">Player 2 Name:</label>
+    <input type="text" id="player2-name" placeholder="Enter Player 2's name" required>
+  
+    <label for="player1-mark">Player 1 Mark:</label>
+    <select id="player1-mark" required>
+      <option value="X" selected>X</option>
+      <option value="O">O</option>
+    </select>
+  
+    <label for="player2-mark">Player 2 Mark:</label>
+    <select id="player2-mark" required>
+      <option value="X">X</option>
+      <option value="O" selected>O</option>
+    </select>
+  
+    <button id="start-game-button">Start Game</button>
+  </form>
+  
   <div class="container">
     <h1>Tic Tac Toe</h1>
     <div class="board">

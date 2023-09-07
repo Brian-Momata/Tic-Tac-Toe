@@ -10,6 +10,7 @@ const Gameboard = (player1, player2) => {
   const dialog = document.getElementById('messages-dialog');
   const messageBox = document.querySelector('.message-box');
   const closeDialogButton = document.getElementById('close-dialog');
+
   let currentPlayer = player1;
 
   const displayRound = () => {
@@ -39,8 +40,6 @@ const Gameboard = (player1, player2) => {
       const winnerCombo = checkWinner();
       if (winnerCombo) {
         showModalWithDelay(`${currentPlayer.getName()} Wins!`);
-        messageBox.textContent = `${currentPlayer.getName()} Wins!`;
-
         // Add a class to the winning cells for styling
         for (const index of winnerCombo) {
           board[index].classList.add('winning-cell');
@@ -129,13 +128,38 @@ const Gameboard = (player1, player2) => {
 }
 
 const resetButton = document.getElementById("restart-button");
-const player1 = Player("Player 1", "X");
-const player2 = Player("Player 2", "O");
+const playerForm = document.querySelector('.player-form');
+const gameContainer = document.querySelector('.container');
 
-// Create a game board with the players
-const gameboard = Gameboard(player1, player2);
+let gameboard; // Declare gameboard outside the event listener
 
-// Start the game by calling playRound
-gameboard.playRound();
+resetButton.addEventListener('click', () => {
+  if (gameboard) {
+    gameboard.resetBoard();
+  }
+});
 
-resetButton.addEventListener("click", () => gameboard.resetBoard());
+playerForm.addEventListener('submit', (event) => {
+  const player1Name = document.getElementById('player1-name').value;
+  const player2Name = document.getElementById('player2-name').value;
+  const player1Mark = document.getElementById('player1-mark').value;
+  const player2Mark = document.getElementById('player2-mark').value;
+
+  // Create player instances with entered names and marks
+  const player1 = Player(player1Name, player1Mark);
+  const player2 = Player(player2Name, player2Mark);
+
+  // Hide the player form and start the game
+  const playerForm = document.querySelector('.player-form');
+  playerForm.style.display = 'none';
+  gameContainer.style.display = 'block';
+
+  // Create a game board with the players
+  gameboard = Gameboard(player1, player2);
+
+  // Start the game by calling playRound
+  gameboard.playRound();
+
+  // Prevent form from submitting
+  event.preventDefault();
+})
