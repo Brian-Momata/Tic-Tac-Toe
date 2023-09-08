@@ -127,39 +127,47 @@ const Gameboard = (player1, player2) => {
   return { playRound, resetBoard };
 }
 
-const resetButton = document.getElementById("restart-button");
-const playerForm = document.querySelector('.player-form');
-const gameContainer = document.querySelector('.container');
+const Game = () => {
+  let gameboard;
 
-let gameboard; // Declare gameboard outside the event listener
+  const start = () => {
+    const resetButton = document.getElementById("restart-button");
+    const playerForm = document.querySelector('.player-form');
+    const gameContainer = document.querySelector('.container');
 
-resetButton.addEventListener('click', () => {
-  if (gameboard) {
-    gameboard.resetBoard();
+    resetButton.addEventListener('click', () => {
+      if (gameboard) {
+        gameboard.resetBoard();
+      }
+    });
+
+    playerForm.addEventListener('submit', (event) => {
+      const player1Name = document.getElementById('player1-name').value;
+      const player2Name = document.getElementById('player2-name').value;
+      const player1Mark = document.getElementById('player1-mark').value;
+      const player2Mark = document.getElementById('player2-mark').value;
+
+      // Create player instances with entered names and marks
+      const player1 = Player(player1Name, player1Mark);
+      const player2 = Player(player2Name, player2Mark);
+
+      // Hide the player form and start the game
+      playerForm.style.display = 'none';
+      gameContainer.style.display = 'block';
+
+      // Create a game board with the players
+      gameboard = Gameboard(player1, player2);
+
+      // Start the game by calling playRound
+      gameboard.playRound();
+
+      // Prevent form from submitting
+      event.preventDefault();
+    });
   }
-});
 
-playerForm.addEventListener('submit', (event) => {
-  const player1Name = document.getElementById('player1-name').value;
-  const player2Name = document.getElementById('player2-name').value;
-  const player1Mark = document.getElementById('player1-mark').value;
-  const player2Mark = document.getElementById('player2-mark').value;
+  return { start };
+}
 
-  // Create player instances with entered names and marks
-  const player1 = Player(player1Name, player1Mark);
-  const player2 = Player(player2Name, player2Mark);
-
-  // Hide the player form and start the game
-  const playerForm = document.querySelector('.player-form');
-  playerForm.style.display = 'none';
-  gameContainer.style.display = 'block';
-
-  // Create a game board with the players
-  gameboard = Gameboard(player1, player2);
-
-  // Start the game by calling playRound
-  gameboard.playRound();
-
-  // Prevent form from submitting
-  event.preventDefault();
-})
+const game = Game();
+game.start();
