@@ -15,19 +15,17 @@ const Gameboard = (player1, player2) => {
 
   const displayRound = () => {
     const messageContainer = document.querySelector('.round-messages');
-    
-    // Check if there's an existing message element
-    const existingMessage = document.querySelector('.round-messages p');
-    if (existingMessage) {
-      // If one exists, remove it
-      messageContainer.removeChild(existingMessage);
-    }
   
     // Create and append the new message element
     const messagePara = document.createElement('p');
     messagePara.textContent = `${currentPlayer.getName()}'s turn`;
+  
+    // Reset the message box by clearing its content
+    messageContainer.innerHTML = "";
+  
+    // Append the new message
     messageContainer.appendChild(messagePara);
-  }
+  }  
   
   const markCell = (cell) => {
     const mark = currentPlayer.getMark();
